@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./css/App.css";
 import profile from "./assets/profil.jpg";
+import logo from "./assets/logo.png"
 import { translations } from "./translations";
 
 function App() {
   const [lang, setLang] = useState("fr");
   const t = translations[lang];
+  const logo_size = 60
 
   const toggleLang = () => {
     setLang((prev) => (prev === "fr" ? "en" : "fr"));
@@ -15,7 +17,8 @@ function App() {
     <div className="page">
       {/* NAVBAR */}
       <header className="navbar">
-        <div className="logo">RP.</div>
+        <div className="logo">
+          <img src={logo} width={logo_size +10} height={logo_size} alt="logo"></img></div>
         <nav className="nav-links">
           <a href="#services">{t.nav.services}</a>
           <a href="#projects">{t.nav.projects}</a>
