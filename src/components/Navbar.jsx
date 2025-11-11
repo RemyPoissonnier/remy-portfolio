@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Navbar({
   navLabels,
@@ -9,8 +9,27 @@ function Navbar({
   theme = "dark",
   onToggleTheme,
 }) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const headerClasses = [
+    "sticky top-0 z-40 flex items-center justify-between border-b transition-all duration-300",
+    "backdrop-blur-md bg-white/5 text-slate-900 dark:bg-night/50 dark:text-ink",
+    scrolled ? "py-1 border-white/30 shadow-lg shadow-black/10 dark:border-white/10" : "py-4 border-transparent",
+  ].join(" ");
+
   return (
-    <header className="sticky top-0 z-40 flex items-center justify-between border-b border-slate-200 bg-white/90 px-5 py-4 text-slate-900 shadow-lg backdrop-blur-xl transition dark:border-[rgba(245,192,70,0.12)] dark:bg-[radial-gradient(circle_at_top_left,rgba(15,23,42,0.86),rgba(5,8,22,0.94))] dark:text-ink md:px-[8vw]">
+    <header className={`${headerClasses} px-5 md:px-[8vw]`}>
       <div className="flex items-center gap-3 font-semibold tracking-[0.12em] text-accent">
         <img
           src={logoSrc}
