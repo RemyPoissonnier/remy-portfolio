@@ -18,12 +18,22 @@
   body {
     margin: 0;
     font-family: theme("fontFamily.sans");
+    background: radial-gradient(circle at top, #fefefe 0%, #f7f9fc 60%, #e6ecf5 100%);
+    color: #111826;
+    transition: background 0.4s ease, color 0.2s ease;
+  }
+
+  .dark body {
     background: radial-gradient(circle at top, #101a3a 0%, #050816 40%, #02030a 100%);
     color: theme("colors.ink.DEFAULT");
   }
 
   ::selection {
     background-color: rgba(245, 192, 70, 0.3);
+    color: #050816;
+  }
+
+  .dark ::selection {
     color: theme("colors.ink.DEFAULT");
   }
 }
