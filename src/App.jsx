@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import ServicesSection from "./components/ServicesSection";
 import ContactSection from "./components/ContactSection";
 import { useScrollReveal } from "./hooks/useScrollReveal";
+import { seoContent, SITE_URL } from "./seo/metadata";
+import { useSeo } from "./hooks/useSeo";
 
 const sectionSpacing = "px-5 py-12 md:px-[8vw]";
 const primaryButtonClasses =
@@ -33,6 +35,40 @@ function App() {
   const heroRef = useScrollReveal({ threshold: 0.4 });
   const projectsRef = useScrollReveal();
   const processRef = useScrollReveal();
+  const seo = seoContent[lang];
+  const canonicalUrl =
+    typeof window !== "undefined" ? `${SITE_URL}${window.location.pathname}` : SITE_URL;
+  const shareImage = profile;
+  const skipText = lang === "fr" ? "Aller au contenu" : "Skip to content";
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Rémy Poissonnier",
+    jobTitle: lang === "fr" ? "Développeur Web Freelance" : "Freelance Web Developer",
+    url: canonicalUrl,
+    image: shareImage,
+    email: "mailto:rpoissonnier.it@gmail.com",
+    sameAs: [
+      "https://www.linkedin.com/in/r%C3%A9my-poissonnier-a8bb71227/",
+      "https://github.com/RemyPoissonnier",
+    ],
+    knowsAbout: seo.keywords,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Mons-en-Barœul",
+      addressCountry: "France",
+    },
+  };
+  const structuredDataJson = JSON.stringify(structuredData);
+
+  useSeo({
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    locale: seo.locale,
+    url: canonicalUrl,
+    image: shareImage,
+  });
 
   const toggleLang = () => {
     setLang((prev) => (prev === "fr" ? "en" : "fr"));
@@ -61,6 +97,13 @@ function App() {
 
   return (
     <div className="flex min-h-screen flex-col bg-transparent text-slate-900 transition-colors dark:text-ink">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-night"
+      >
+        {skipText}
+      </a>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredDataJson }} />
       <Navbar
         navLabels={t.nav}
         lang={lang}
@@ -71,7 +114,7 @@ function App() {
         onToggleTheme={toggleTheme}
       />
 
-      <main className="mx-auto w-full max-w-6xl flex-1">
+      <main id="main-content" className="mx-auto w-full max-w-6xl flex-1">
         {/* HERO */}
         <section
           ref={heroRef}
