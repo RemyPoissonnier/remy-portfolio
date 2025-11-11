@@ -4,6 +4,9 @@ import logo from "./assets/logo.png";
 import { translations } from "./translations";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ServicesSection from "./components/ServicesSection";
+import ContactSection from "./components/ContactSection";
+import { useScrollReveal } from "./hooks/useScrollReveal";
 
 const sectionSpacing = "px-5 py-12 md:px-[8vw]";
 const primaryButtonClasses =
@@ -27,6 +30,9 @@ function App() {
   const [theme, setTheme] = useState(getInitialTheme);
   const t = translations[lang];
   const logoSize = 60;
+  const heroRef = useScrollReveal({ threshold: 0.4 });
+  const projectsRef = useScrollReveal();
+  const processRef = useScrollReveal();
 
   const toggleLang = () => {
     setLang((prev) => (prev === "fr" ? "en" : "fr"));
@@ -68,6 +74,7 @@ function App() {
       <main className="mx-auto w-full max-w-6xl flex-1">
         {/* HERO */}
         <section
+          ref={heroRef}
           id="hero"
           className="grid w-full items-center gap-10 px-5 pb-10 pt-14 text-slate-900 dark:text-ink md:px-[8vw] lg:grid-cols-[minmax(0,2fr)_minmax(260px,1.4fr)]"
         >
@@ -108,47 +115,10 @@ function App() {
           </div>
         </section>
 
-        {/* SERVICES */}
-        <section id="services" className={sectionSpacing}>
-          <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">{t.services.title}</h2>
-          <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-ink-muted">{t.services.subtitle}</p>
-
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Websites */}
-            <div className="rounded-[18px] border border-slate-200 bg-white/90 p-5 text-sm text-slate-600 shadow-soft transition hover:-translate-y-1 hover:shadow-glow dark:border-[rgba(245,192,70,0.14)] dark:bg-[radial-gradient(circle_at_top,rgba(26,37,74,0.9),rgba(3,4,12,0.98))] dark:text-ink-muted">
-              <h3 className="text-lg font-semibold text-accent">{t.services.websites.title}</h3>
-              <p className="mt-2">{t.services.websites.description}</p>
-              <ul className="mt-3 list-disc space-y-1 text-[0.85rem] text-slate-600 marker:text-accent dark:text-ink-muted">
-                {t.services.websites.bullets.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-[18px] border border-slate-200 bg-white/90 p-5 text-sm text-slate-600 shadow-soft transition hover:-translate-y-1 hover:shadow-glow dark:border-[rgba(245,192,70,0.14)] dark:bg-[radial-gradient(circle_at_top,rgba(26,37,74,0.9),rgba(3,4,12,0.98))] dark:text-ink-muted">
-              <h3 className="text-lg font-semibold text-accent">{t.services.webapps.title}</h3>
-              <p className="mt-2">{t.services.webapps.description}</p>
-              <ul className="mt-3 list-disc space-y-1 text-[0.85rem] text-slate-600 marker:text-accent dark:text-ink-muted">
-                {t.services.webapps.bullets.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-[18px] border border-slate-200 bg-white/90 p-5 text-sm text-slate-600 shadow-soft transition hover:-translate-y-1 hover:shadow-glow dark:border-[rgba(245,192,70,0.14)] dark:bg-[radial-gradient(circle_at_top,rgba(26,37,74,0.9),rgba(3,4,12,0.98))] dark:text-ink-muted">
-              <h3 className="text-lg font-semibold text-accent">{t.services.automation.title}</h3>
-              <p className="mt-2">{t.services.automation.description}</p>
-              <ul className="mt-3 list-disc space-y-1 text-[0.85rem] text-slate-600 marker:text-accent dark:text-ink-muted">
-                {t.services.automation.bullets.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+        <ServicesSection content={t.services} sectionSpacing={sectionSpacing} />
 
         {/* PROJECTS */}
-        <section id="projects" className={sectionSpacing}>
+        <section id="projects" ref={projectsRef} className={sectionSpacing}>
           <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">{t.projects.title}</h2>
           <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-ink-muted">{t.projects.subtitle}</p>
 
@@ -169,7 +139,7 @@ function App() {
         </section>
 
         {/* PROCESS */}
-        <section id="process" className={sectionSpacing}>
+        <section id="process" ref={processRef} className={sectionSpacing}>
           <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">{t.process.title}</h2>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -188,77 +158,11 @@ function App() {
           </div>
         </section>
 
-        {/* CONTACT */}
-        <section id="contact" className={`${sectionSpacing} pb-14`}>
-          <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">{t.contact.title}</h2>
-          <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-ink-muted">{t.contact.subtitle}</p>
-
-          <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(260px,1.6fr)]">
-            <div className="space-y-3 text-sm text-slate-600 dark:text-ink-muted">
-              <p className="flex flex-wrap gap-2">
-                <strong>{t.contact.emailLabel} :</strong>{" "}
-                <a href="mailto:rpoissonnier.it@gmail.com" className="text-accent hover:underline">
-                  rpoissonnier.it@gmail.com
-                </a>
-              </p>
-              <p className="flex flex-wrap gap-2">
-                <strong>{t.contact.linkedInLabel} :</strong>{" "}
-                <a
-                  href="https://www.linkedin.com/in/r%C3%A9my-poissonnier-a8bb71227/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-accent hover:underline"
-                >
-                  LinkedIn
-                </a>
-              </p>
-              <p className="flex flex-wrap gap-2">
-                <strong>{t.contact.githubLabel} :</strong>{" "}
-                <a
-                  href="https://github.com/RemyPoissonnier"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-accent hover:underline"
-                >
-                  GitHub
-                </a>
-              </p>
-              <p className="text-slate-900 dark:text-white">{t.contact.location}</p>
-            </div>
-
-            <form
-              className="flex flex-col gap-3 rounded-[18px] border border-slate-200 bg-white p-5 text-sm shadow-soft dark:border-[rgba(245,192,70,0.22)] dark:bg-[rgba(3,5,12,0.98)]"
-              action="mailto:rpoissonnier.it@gmail.com"
-              method="post"
-              encType="text/plain"
-            >
-              <input
-                type="text"
-                name="name"
-                placeholder={t.contact.form.name}
-                required
-                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 transition focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/20 dark:border-white/20 dark:bg-[#040610] dark:text-ink dark:placeholder:text-ink-muted dark:focus:bg-night dark:focus:ring-accent/30"
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder={t.contact.form.email}
-                required
-                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 transition focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/20 dark:border-white/20 dark:bg-[#040610] dark:text-ink dark:placeholder:text-ink-muted dark:focus:bg-night dark:focus:ring-accent/30"
-              />
-              <textarea
-                name="message"
-                rows="4"
-                placeholder={t.contact.form.message}
-                required
-                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 transition focus:border-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/20 dark:border-white/20 dark:bg-[#040610] dark:text-ink dark:placeholder:text-ink-muted dark:focus:bg-night dark:focus:ring-accent/30"
-              />
-              <button type="submit" className={`${primaryButtonClasses} w-full`}>
-                {t.contact.form.submit}
-              </button>
-            </form>
-          </div>
-        </section>
+        <ContactSection
+          content={t.contact}
+          sectionSpacing={sectionSpacing}
+          primaryButtonClasses={primaryButtonClasses}
+        />
       </main>
 
       <Footer text={t.footer} />

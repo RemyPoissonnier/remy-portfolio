@@ -37,3 +37,28 @@
     color: theme("colors.ink.DEFAULT");
   }
 }
+
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: opacity, transform;
+}
+
+.scroll-fade.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-fade.fade-out-top {
+  opacity: 0;
+  transform: translateY(-28px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-fade {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
