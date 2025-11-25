@@ -5,6 +5,7 @@ import { translations } from "./translations";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ServicesSection from "./components/ServicesSection";
+import OffersSection from "./components/OffersSection";
 import ContactSection from "./components/ContactSection";
 import { useScrollReveal } from "./hooks/useScrollReveal";
 import { seoContent, SITE_URL } from "./seo/metadata";
@@ -44,7 +45,7 @@ function App() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Rémy Poissonnier",
-    jobTitle: lang === "fr" ? "Développeur Web Freelance" : "Freelance Web Developer",
+    jobTitle: lang === "fr" ? "Consultant IA & automatisation" : "AI automation consultant",
     url: canonicalUrl,
     image: shareImage,
     email: "mailto:rpoissonnier.it@gmail.com",
@@ -132,7 +133,7 @@ function App() {
               <a href="#contact" className={primaryButtonClasses}>
                 {t.hero.ctaDiscuss}
               </a>
-              <a href="#projects" className={ghostButtonClasses}>
+              <a href="#offers" className={ghostButtonClasses}>
                 {t.hero.ctaProjects}
               </a>
             </div>
@@ -158,6 +159,7 @@ function App() {
           </div>
         </section>
 
+        <OffersSection content={t.offers} sectionSpacing={sectionSpacing} />
         <ServicesSection content={t.services} sectionSpacing={sectionSpacing} />
 
         {/* PROJECTS */}

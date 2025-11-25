@@ -48,6 +48,12 @@ function Navbar({
           {navLabels.services}
         </a>
         <a
+          href="#offers"
+          className="text-slate-600 transition duration-200 hover:-translate-y-0.5 hover:text-accent dark:text-ink-muted"
+        >
+          {navLabels.offers}
+        </a>
+        <a
           href="#projects"
           className="text-slate-600 transition duration-200 hover:-translate-y-0.5 hover:text-accent dark:text-ink-muted"
         >
