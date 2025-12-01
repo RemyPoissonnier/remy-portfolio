@@ -40,6 +40,17 @@ function ContactSection({ content, sectionSpacing, primaryButtonClasses }) {
             </a>
           </p>
           <p className="text-slate-900 dark:text-white">{content.location}</p>
+          <div className="pt-2">
+            <a
+              href="https://calendly.com/rpoissonnier-it/30min"
+              target="_blank"
+              rel="noreferrer"
+              className={`${primaryButtonClasses} w-full sm:w-auto`}
+            >
+              {content.calendlyCta}
+            </a>
+            <p className="mt-2 text-xs text-slate-500 dark:text-ink-muted">{content.calendlyNote}</p>
+          </div>
         </div>
 
         <form

@@ -89,6 +89,8 @@ const en = {
     linkedInLabel: "LinkedIn",
     githubLabel: "GitHub",
     location: "Based in Lille - available remotely and internationally.",
+    calendlyCta: "Book 30 min on Calendly",
+    calendlyNote: "Pick a slot that works for you; instant confirmation.",
     form: {
       name: "Your name",
       email: "Your email",

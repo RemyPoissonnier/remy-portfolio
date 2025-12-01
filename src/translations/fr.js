@@ -102,6 +102,8 @@ const fr = {
     githubLabel: "GitHub",
     location:
       "Basé à Lille - disponible à distance et partout en France.",
+    calendlyCta: "Planifier 30 min sur Calendly",
+    calendlyNote: "Choisissez le créneau qui vous convient, confirmation immédiate.",
     form: {
       name: "Votre nom",
       email: "Votre email",
